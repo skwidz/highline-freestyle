@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 const Create = () => {
-  const [alias, setAlias] = useState('Darth Vader');
+  const [name, setAlias] = useState('Darth Vader');
   const [technicalName, setTechnicalName] = useState('Antihero to feet');
   const [startPos, setStartPos] = useState('HANG');
   const [endPos, setEndPos] = useState('EXPOSURE');
@@ -12,12 +12,12 @@ const Create = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const trick = { alias, technicalName, startPos, endPos, description };
+    const trick = { name, technicalName, startPos, endPos, description };
 
     fetch('http://localhost:8000/tricks', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
-      content: JSON.stringify(trick)
+      body: JSON.stringify(trick)
     }).then(() => {
       console.log(trick);
       history.push('/');
@@ -32,7 +32,7 @@ const Create = () => {
         <input
           type="text"
           required
-          value={alias}
+          value={name}
           onChange={(e) => setAlias(e.target.value)}
         />
         <label>Technical Name:</label>
