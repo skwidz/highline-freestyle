@@ -180,6 +180,14 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     computeStats(randomTricks);
   }
 
+  function toggleTouch(element){
+    var inp = document.getElementById(element.id);
+    inp.classList.toggle("touch-button-active");
+    inp.classList.toggle("touch-button-inactive");
+    //document.getElementById(element.id).toggleClass("touch-button");
+    //element.toggleClass("touch-button");
+  }
+
   return (
     <div className="generator">
       <h2>Generate a Random Combo</h2>
@@ -212,9 +220,24 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                 {Array.from(Array(parseInt(maxDifficulty)).keys()).map(diffNr => {
                   diffNr++;
                   return (
-                    <div className="col-2">
-                      <input id={"checkboxForLevel_" + diffNr} className="btn-check" value={diffNr} type="checkbox" defaultChecked autoComplete="off" onChange={e => refreshBlacklist()} />
-                      <label className="btn btn-outline-success allowedDiffButton" htmlFor={"checkboxForLevel_" + diffNr}>{diffNr}</label>
+                    <div 
+                    className="col-2">
+                      <input 
+                      id={"checkboxForLevel_" + diffNr} 
+                      
+                      value={diffNr} 
+                      className="btn-check" 
+                      value={diffNr} 
+                      type="checkbox" 
+                      defaultChecked 
+                      autoComplete="off" 
+                      onChange={e => refreshBlacklist()} />
+                      <label 
+                      id={"labelForLevel_" + diffNr}
+                      className="btn  allowedDiffButton touch-button-active" 
+                      htmlFor={"checkboxForLevel_" + diffNr}
+                      onClick={(e) => toggleTouch(e.target)}
+                      >{diffNr}</label>
                     </div>
                   );
                 })}
@@ -222,7 +245,6 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
             </div>
           </div>
         </div>
-
 
         <div className="form-row form-check">
           <label className="form-check-label">Allow duplicates</label>
