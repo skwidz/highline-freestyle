@@ -207,20 +207,18 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
           
           <div className="collapse" id="advancedDifficultyOptions">
             <div className="card card-body">
-            <p>Allowed difficulty levels:</p>
-          <div className="btn-group btn-group-toggle row" data-toggle="buttons" id="specifyItemsDiv">
-            {Array.from(Array(parseInt(maxDifficulty)).keys()).map(diffNr => {
-              diffNr++;
-              return (
-                <div className="col-2">
-                  <label className="btn btn-light">
-                    <div className="w-100">{diffNr}</div>
-                    <input id={"checkboxForLevel_" + diffNr} type="checkbox" value={diffNr} defaultChecked autoComplete="off" onChange={e => refreshBlacklist()} />
-                  </label>
-                </div>
-              );
-            })}
-          </div>
+              <p>Allowed difficulty levels:</p>
+              <div className="btn-group btn-group-toggle row" data-toggle="buttons" id="specifyItemsDiv">
+                {Array.from(Array(parseInt(maxDifficulty)).keys()).map(diffNr => {
+                  diffNr++;
+                  return (
+                    <div className="col-2">
+                      <input id={"checkboxForLevel_" + diffNr} className="btn-check" value={diffNr} type="checkbox" defaultChecked autoComplete="off" onChange={e => refreshBlacklist()} />
+                      <label className="btn btn-outline-success allowedDiffButton" htmlFor={"checkboxForLevel_" + diffNr}>{diffNr}</label>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
