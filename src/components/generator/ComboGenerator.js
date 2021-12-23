@@ -28,9 +28,9 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const [stickFrequencyWhitelist, setStickFrequencyWhitelist] = useState(Array.from(Array(7).keys()));
 
   // Contains all diff-levels that should be included from the combo
-  function refreshDiffWhitelist() {
+  function refreshDiffWhitelist(maxDiff) {
     let children = document.getElementById("specifyItemsDiv").childNodes;
-    setDifficultyWhitelist(difficultyWhitelist.filter(level => level <= maxDifficulty));
+    setDifficultyWhitelist(difficultyWhitelist.filter(level => level <= maxDiff));
     children.forEach(element => {
       let box = element.getElementsByTagName("input")[0]
       let boxVal = parseInt(box.value);
@@ -317,7 +317,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
         </div>
         <div className="form-row">
           <label htmlFor="maxDifficultyRange" className="form-label">Max difficulty: {maxDifficulty}</label>
-          <input type="range" className="form-range" onChange={(e) => { setMaxDifficulty(e.target.value); refreshDiffWhitelist(); refreshAvgSlider(); }} min="0" max={difficultyRangeMax} step="1" id="maxDifficultyRange" />
+          <input type="range" className="form-range" onChange={(e) => { setMaxDifficulty(e.target.value); refreshDiffWhitelist(e.target.value); refreshAvgSlider(); }} min="0" max={difficultyRangeMax} step="1" id="maxDifficultyRange" />
         </div>
         <div className="form-row">
           <button className="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#advancedDifficultyOptions" aria-expanded="false" aria-controls="collapseExample">
@@ -341,7 +341,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                           type="checkbox"
                           defaultChecked
                           autoComplete="off"
-                          onChange={e => refreshDiffWhitelist()} />
+                          onChange={e => refreshDiffWhitelist(maxDifficulty)} />
                         <label
                           id={"labelForLevel_" + diffNr}
                           className="btn allowedDiffButton touch-button-active"
