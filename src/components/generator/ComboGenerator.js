@@ -240,9 +240,11 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
 
     const currentYear = new Date().getFullYear();
 
+    const trickIds = randomTricks.map(trick => trick.id);
+
     setRandomCombo({
       name: comboName,
-      tricks: randomTricks,
+      tricks: trickIds,
       minDiff: minDiff,
       maxDiff: maxDiff,
       avgDiff: avgDiff,

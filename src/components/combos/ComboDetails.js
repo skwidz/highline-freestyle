@@ -12,6 +12,7 @@ const ComboDetails = ({ randomCombo }) => {
   const path = useLocation().pathname.toString().toLowerCase();
 
   let combo;
+  let tricksInCombo = [];
   let params;
   const inGenerator = path === "/generator" ? true : false;
 
@@ -23,7 +24,15 @@ const ComboDetails = ({ randomCombo }) => {
     combo = useLiveQuery(() => db.getCombo(params.id), []);
   }
 
-  if (!combo) { return null; } else { console.log(combo); }
+  if (!combo) { return null; } else { 
+    console.log(combo); 
+
+    combo.tricks.map(async function(trickId){
+      let trick = await db.getTrick(trickId);
+      tricksInCombo.push(trick);
+    });
+  }
+  console.log("TricksInCombo: ", tricksInCombo);
 
   const freqList = stickFrequencies.map((item, i) => {
     return (
@@ -76,7 +85,8 @@ const ComboDetails = ({ randomCombo }) => {
           </div>
 
           <div className="row">
-            {combo.tricks.map(trick => (
+            {tricksInCombo.map(trick => {
+              return (
               <div className="col-12">
                 <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
                   <button className="btn trick-preview skillFreq" freq={trick.stickFrequency}>
@@ -84,7 +94,7 @@ const ComboDetails = ({ randomCombo }) => {
                   </button>
                 </Link>
               </div>
-            ))}
+            );})}
           </div>
 
           <div className="row">
